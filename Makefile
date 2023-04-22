@@ -2,6 +2,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 -fPIC -D_GNU_SOURCE
 LDFLAGS = -shared
 
+.PHONY: all clean default
+
+default: all	# just because the task ask for
+
 all: encode decode libcodecA.so libcodecB.so cmp copy stshell
 
 encode: encode.c

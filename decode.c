@@ -4,14 +4,13 @@
 #include <dlfcn.h>
 
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
-        fprintf(stderr, "Usage: %s <encode/decode> <codec> <message>\n", argv[0]);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <codec> <message>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
-    const char *mode = argv[1];
-    const char *codec = argv[2];
-    char *message = argv[3];
+    const char *codec = argv[1];
+    char *message = argv[2];
 
     char lib_name[20];
     snprintf(lib_name, sizeof(lib_name), "lib%s.so", codec);
@@ -23,7 +22,7 @@ int main(int argc, char *argv[]) {
     }
 
     char function_name[20];
-    snprintf(function_name, sizeof(function_name), "%s_%s", mode, codec);
+    snprintf(function_name, sizeof(function_name), "decode_%s", codec);
 
     void (*process)(char *) = dlsym(library, function_name);
     if (!process) {

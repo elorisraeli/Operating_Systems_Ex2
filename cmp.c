@@ -19,13 +19,13 @@ int main(int argc, char *argv[]) {
                 ignore_case = true;
                 break;
             default:
-                fprintf(stderr, "Usage: %s [-v] [-i] <file1> <file2>\n", argv[0]);
+                fprintf(stderr, "Usage: %s <file1> <file2> [-v] [-i]\n", argv[0]);
                 exit(EXIT_FAILURE);
         }
     }
 
     if (optind + 2 != argc) {
-        fprintf(stderr, "Usage: %s [-v] [-i] <file1> <file2>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <file1> <file2> [-v] [-i]\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
@@ -40,7 +40,8 @@ int main(int argc, char *argv[]) {
     int result = 0;
     int ch1, ch2;
 
-    do {
+    while (ch1 != EOF && ch2 != EOF)
+    {
         ch1 = fgetc(file1);
         ch2 = fgetc(file2);
 
@@ -53,7 +54,7 @@ int main(int argc, char *argv[]) {
             result = 1;
             break;
         }
-    } while (ch1 != EOF && ch2 != EOF);
+    }
 
     fclose(file1);
     fclose(file2);
